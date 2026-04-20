@@ -1,0 +1,150 @@
+{
+  "info": {
+    "name": "Spring Boot Guardrails API",
+    "_postman_id": "c1b7a3d2-guardrails-collection",
+    "description": "Postman collection for Backend Engineering Assignment (Spring Boot + Redis)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Post",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"authorId\": 1,\n  \"content\": \"This is a sample post\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/posts",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "posts"]
+        }
+      }
+    },
+    {
+      "name": "Add Human Comment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"authorId\": 2,\n  \"content\": \"Nice post!\",\n  \"depthLevel\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/posts/1/comments?isBot=false",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "posts", "1", "comments"],
+          "query": [
+            {
+              "key": "isBot",
+              "value": "false"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Add Bot Comment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"authorId\": 10,\n  \"content\": \"Automated reply\",\n  \"depthLevel\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/posts/1/comments?isBot=true&botId=10&userId=1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "posts", "1", "comments"],
+          "query": [
+            {
+              "key": "isBot",
+              "value": "true"
+            },
+            {
+              "key": "botId",
+              "value": "10"
+            },
+            {
+              "key": "userId",
+              "value": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Like Post",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/posts/1/like",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "posts", "1", "like"]
+        }
+      }
+    },
+    {
+      "name": "Stress Test Bot Limit (Manual)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"authorId\": 99,\n  \"content\": \"Spam bot\",\n  \"depthLevel\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/posts/1/comments?isBot=true&botId=99&userId=1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "posts", "1", "comments"],
+          "query": [
+            {
+              "key": "isBot",
+              "value": "true"
+            },
+            {
+              "key": "botId",
+              "value": "99"
+            },
+            {
+              "key": "userId",
+              "value": "1"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
